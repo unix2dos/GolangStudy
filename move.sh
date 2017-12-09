@@ -1,0 +1,1 @@
+mv ~/golang/src/daydayup/* ./
