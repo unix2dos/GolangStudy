@@ -1,4 +1,4 @@
 mv ~/golang/src/daydayup/* ./
 git add .
-git commit -m "add new files"
+git commit -m "update a few files"
 git push
