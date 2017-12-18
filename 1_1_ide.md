@@ -2,7 +2,7 @@
 
 
 
-## vscode使用
+## 用户设置
 ```
 {
     "workbench.iconTheme": "vscode-icons",
@@ -26,6 +26,7 @@
 ### theme
     molokai 自带
 
+
 ### plugins:
     1. go
     2. vscode-icons
@@ -34,11 +35,14 @@
     5. markdown auto-open
     
     
-### vscode增加调试:
+### vscode增加debug:
     1. xcode-select --install
-    2. 创建钥匙链 dlv-cert 证书
+    2. 钥匙链创建证书 dlv-cert
     3. 证书签名
     cd $GOPATH/src/github.com/derekparker
     git clone https://github.com/derekparker/delve.git
+    cd delve
     CERT=dlv-cert make install
+
+    4. launch.json可以不配置
 
