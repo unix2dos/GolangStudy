@@ -37,11 +37,16 @@
     
 ### vscode增加debug:
     1. xcode-select --install
-    2. 钥匙链创建证书 dlv-cert
+    2. 钥匙链创建证书 dlv-cert
+    
     3. 证书签名
+    
     cd $GOPATH/src/github.com/derekparker
+    
     git clone https://github.com/derekparker/delve.git
+    
     cd delve
+    
     CERT=dlv-cert make install
 
     4. launch.json可以不配置
