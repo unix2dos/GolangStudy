@@ -2,7 +2,7 @@
 
 
 
-## 用户设置
+### 1.用户设置
 ```
 {
     "workbench.iconTheme": "vscode-icons",
@@ -23,11 +23,11 @@
 }
 ```
 
-### theme
+### 2.theme
     molokai 自带
 
 
-### plugins:
+### 3.plugins:
     1. go
     2. vscode-icons
     3. code runner
@@ -35,7 +35,7 @@
     5. markdown auto-open
     
     
-### vscode增加debug:
+### 4.vscode增加debug:
     1. xcode-select --install
     2. 钥匙链创建证书 dlv-cert
     
@@ -50,5 +50,5 @@
     CERT=dlv-cert make install
 
     4. launch.json可以不配置
-### vscode snippets
+### 5.vscode snippets
 https://github.com/Microsoft/vscode-go/blob/master/snippets/go.json
