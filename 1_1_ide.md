@@ -50,4 +50,5 @@
     CERT=dlv-cert make install
 
     4. launch.json可以不配置
-
+### vscode snippets
+https://github.com/Microsoft/vscode-go/blob/master/snippets/go.json
