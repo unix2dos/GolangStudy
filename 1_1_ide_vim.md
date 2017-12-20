@@ -1,8 +1,8 @@
 ### 配置文件和快速设置
-- [.vimrc][1]
-- [.zhsrc][2]
-[1]: https://github.com/unix2dos/LevonConfig/blob/master/.vimrc
-[2]: https://github.com/unix2dos/LevonConfig/blob/master/.zshrc
+
+.vimrc:    https://github.com/unix2dos/LevonConfig/blob/master/.vimrc
+
+.zhsrc:    https://github.com/unix2dos/LevonConfig/blob/master/.zshrc
 
 1. PlugClean
 2. PlugInstall
