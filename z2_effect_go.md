@@ -183,3 +183,6 @@ b. 还有种区分内嵌与子类的重要手段。当内嵌一个类型时，�
 
 
 ### Concurrency 并发
+
+1. Do not communicate by sharing memory; instead, share memory by communicating.
+    通过通讯去共享内存
