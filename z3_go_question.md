@@ -1,14 +1,22 @@
-#### go 版本更新 
+#### question
+a. go 版本更新 
 
 brew update
 brew install go
 
 
-#### flag provided but not defined: -goversion
-一个是版本原因, 一个是vscode也要修改配置, 坑爹
+b. flag provided but not defined: -goversion
+
+一个是版本原因, 一个是vscode也要修改配置gopath, 坑爹
 
 Thank you, I was able to solve this by running brew uninstall --force go and then downloading the latest installer. Anyone who reads this and wants to use brew you could probably just do brew install go after the forced uninstall. I had to restart my terminal and Gogland after doing this.
 
+c. vscode not jump define
+
+```
+        "go.useLanguageServer": true,
+        "go.docsTool": "gogetdoc",
+```
 
 
 #### sql
@@ -34,4 +42,7 @@ hash | hgetall key | hset key value
 https://github.com/go-xorm/xorm
 
 
+
+### data
+set 可以用 gopkg.in/fatih/set.v0
 
