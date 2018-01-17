@@ -25,6 +25,12 @@ unset GOROOT
 ```
         xcode-select --install
 ```
+#### vscode jump slow
+安装https://github.com/sourcegraph/go-langserver
+源码安装 需要 go install
+```
+  "go.useLanguageServer": true,
+```
 
 
 #### sql
