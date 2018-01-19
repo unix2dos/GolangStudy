@@ -25,9 +25,7 @@ unset GOROOT
 ```
         xcode-select --install
 ```
-#### Goto Definition, Hover, Signature Help do not work for Dot imported functions 
 
-go 1.92 貌似不行, 已提交vscode issue
 
 #### vscode jump slow
 安装https://github.com/sourcegraph/go-langserver
@@ -35,6 +33,18 @@ go 1.92 貌似不行, 已提交vscode issue
 ```
   "go.useLanguageServer": true,
 ```
+
+#### vscode goto Definition, Hover, Signature Help do not work for Dot imported functions 
+
+go 1.92 貌似不行, 已提交vscode issue
+
+
+#### vscode output window hide go
+~/.vscode/扩展包/package.json 找到显示的
+```
+    "showOutput": "never"
+```
+
 
 
 #### sql
