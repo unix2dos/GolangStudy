@@ -29,6 +29,13 @@ unset GOROOT
 
 go 1.92 貌似不行, 已提交vscode issue
 
+#### vscode jump slow
+安装https://github.com/sourcegraph/go-langserver
+源码安装 需要 go install
+```
+  "go.useLanguageServer": true,
+```
+
 
 #### sql
 
