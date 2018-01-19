@@ -25,6 +25,9 @@ unset GOROOT
 ```
         xcode-select --install
 ```
+#### Goto Definition, Hover, Signature Help do not work for Dot imported functions 
+
+go 1.92 貌似不行, 已提交vscode issue
 
 
 #### sql
