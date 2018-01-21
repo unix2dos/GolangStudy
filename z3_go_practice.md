@@ -39,7 +39,12 @@ marshal
 	byte2, _ := json.Marshal(test)
 	fmt.Println(string(byte2))
 ```
+#### convert
+int -> string :
 
+```
+    strconv.Itoa(value)
+```
 
 #### TODO:
 1. xorm | json | 
