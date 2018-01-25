@@ -48,12 +48,7 @@ type entry struct {
 }
 
 func New(f Func) *Memo {
-	// go AA()
 	return &Memo{f: f, cache: make(map[string]*entry)}
-}
-
-func AA() {
-
 }
 
 type Memo struct {
@@ -94,14 +89,112 @@ func main() {
 
 ```
 
+#### 完全不用锁
 
+```
 
+func httpGetBody(url string) (interface{}, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	return ioutil.ReadAll(resp.Body)
+}
 
+type Func func(key string) (interface{}, error)
 
+//request
+type request struct {
+	key      string
+	response chan<- result
+}
 
+//reult
+type result struct {
+	value interface{}
+	err   error
+}
 
+//reultC
+type entry struct {
+	res   result
+	ready chan struct{}
+}
 
+//Memo类
+type Memo struct {
+	requests chan request
+}
 
+func (m *Memo) testChannel(f Func) {
+	cache := make(map[string]*entry)
+	for req := range m.requests {
+		e := cache[req.key]
+		if e == nil {
+			e = &entry{ready: make(chan struct{})}
+			cache[req.key] = e
 
+			go func(e *entry, req request) {
+				e.res.value, e.res.err = f(req.key)
+				close(e.ready)
+			}(e, req)//此处参数一定要传递进去, for循环引用问题
+		}
 
+		go func(e *entry, req request) {
+			<-e.ready
+			req.response <- e.res
+		}(e, req)//此处参数一定要传递进去, for循环引用问题
+	}
+
+}
+
+func (memo *Memo) Get(key string) (value interface{}, err error) {
+	response := make(chan result)
+	memo.requests <- request{key, response}
+	res := <-response
+	return res.value, res.err
+}
+
+func (m *Memo) Close() {
+	close(m.requests)
+}
+
+func New(f Func) *Memo {
+	memo := &Memo{requests: make(chan request)}
+	go memo.testChannel(f)
+	return memo
+}
+
+func main() {
+	memo := New(httpGetBody)
+	go func() {
+		value, err := memo.Get("https://www.baidu.com")
+		fmt.Println("11111111")
+		fmt.Println(string(value.([]byte)), err)
+	}()
+	go func() {
+		value, err := memo.Get("https://www.baidu.com")
+		fmt.Println("222222222222")
+		fmt.Println(string(value.([]byte)), err)
+	}()
+
+	time.Sleep(time.Second * 5)
+}
+```
+
+#### goroutine 调度
+
+```
+for {
+	go fmt.Print(0)
+	fmt.Print(1)
+}
+
+$ GOMAXPROCS=1 go run hacker-cliché.go
+111111111111111111110000000000000000000011111...
+
+$ GOMAXPROCS=2 go run hacker-cliché.go
+010101010101010101011001100101011010010100110...
+```
 
