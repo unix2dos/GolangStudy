@@ -1,3 +1,17 @@
+### build
++ gopath 允许多个目录  类似于workspace
++ 一般package名字和目录名保持一致
+
++ go build 	  main->当前目录	其他->什么也不发生
+默认编译整个目录 	单个go build a.go
+忽略 _  .  开头的go文件
+array_linux.go 选择编译以系统结尾的文件
+
+编译出可执行文件
+
++ go install   main-> /bin   	其他->/pkg
+
+安装到该安装的地方
 
 ### method
 
