@@ -6,8 +6,9 @@
 ```
 $ git clone git@github.com:docker_user/blockchain_guide.git
 $ cd blockchain_guide
-$ git config user.name "yourname"
-$ git config user.email "your email"
+$ #do some change on the content
+$ git commit -am "Fix issue #1: change helo to hello"
+$ git push
 ```
 
 
