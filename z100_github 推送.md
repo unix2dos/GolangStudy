@@ -1,6 +1,7 @@
 ## github 推送
 
 
+### fork别人的仓库
 首先，在 GitHub 上 fork 到自己的仓库，如 docker_user/blockchain_guide，然后 clone 到本地，并设置用户信息。
 
 ```
@@ -24,4 +25,16 @@ Add these lines of configuration at the end of file:
 [credential]
   helper = osxkeychain
   useHttpPath = true
+```
+  
+  
+### 更新自己的仓库
+  
   ```
+  git remote add upstream https://github.com/unix2dos/GolangWeb
+  git fetch upstream
+  git checkout master
+  git rebase upstream/master
+  git push -f origin master
+  ```
+ 
