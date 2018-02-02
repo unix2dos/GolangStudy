@@ -146,8 +146,98 @@ ry.Set(reflect.ValueOf("hello")) // OK, y = "hello"
 
 
 
+### func
+
+* reflect.Zero(v.Type()) ，使用reflect.Zero函数将变量v设置为零值。
+
+* reflect.MakeMap(v.Type() 通过type创建一个map
+* reflect.New(v.Type().Key()).Elem() 构建一个内存, 存放key
+* reflect.New(v.Type().Elem()).Elem()
 
 
+### 反射获取struct tag
+
+```
+func search(resp http.ResponseWriter, req *http.Request) {
+	var data struct {
+		Labels     []string `http:"l"`
+		MaxResults int      `http:"max"`
+		Exact      bool     `http:"x"`
+	}
+	data.MaxResults = 10 // set default
+	if err := params.Unpack(req, &data); err != nil {
+		http.Error(resp, err.Error(), http.StatusBadRequest) // 400
+		return
+	}
+
+	// ...rest of handler...
+	fmt.Fprintf(resp, "Search: %+v\n", data)
+}
+```
+
+* 主要是NumField()
+* fieldInfo := v.Type().Field(i) // a reflect.StructField
+* tag := fieldInfo.Tag           // a reflect.StructTag
+
+```
+func Unpack(req *http.Request, ptr interface{}) error {
+	if err := req.ParseForm(); err != nil {
+		return err
+	}
+
+	// Build map of fields keyed by effective name.
+	fields := make(map[string]reflect.Value)
+	v := reflect.ValueOf(ptr).Elem() // the struct variable
+	for i := 0; i < v.NumField(); i++ {
+		fieldInfo := v.Type().Field(i) // a reflect.StructField
+		tag := fieldInfo.Tag           // a reflect.StructTag
+		name := tag.Get("http")
+		if name == "" {
+			name = strings.ToLower(fieldInfo.Name)
+		}
+		fields[name] = v.Field(i)
+	}
+
+	// Update struct field for each parameter in the request.
+	for name, values := range req.Form {
+		f := fields[name]
+		if !f.IsValid() {
+			continue // ignore unrecognized HTTP parameters
+		}
+		for _, value := range values {
+			if f.Kind() == reflect.Slice {
+				elem := reflect.New(f.Type().Elem()).Elem()
+				if err := populate(elem, value); err != nil {
+					return fmt.Errorf("%s: %v", name, err)
+				}
+				f.Set(reflect.Append(f, elem))
+			} else {
+				if err := populate(f, value); err != nil {
+					return fmt.Errorf("%s: %v", name, err)
+				}
+			}
+		}
+	}
+	return nil
+}
+```
 
 
+### 显示一个方法集
+
+主要是 NumMethod()
+
+```
+func Print(x interface{}) {
+	v := reflect.ValueOf(x)
+	t := v.Type()
+	fmt.Printf("type %s\n", t)
+
+	for i := 0; i < v.NumMethod(); i++ {
+		methType := v.Method(i).Type()
+		fmt.Printf("func (%s) %s%s\n", t, t.Method(i).Name,
+			strings.TrimPrefix(methType.String(), "func"))
+	}
+}
+```
 
