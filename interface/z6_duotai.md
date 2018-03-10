@@ -1,25 +1,16 @@
-package main
+多态
 
-import "fmt"
-
+```
 type P interface {
 	Say()
 }
-type P1 struct {
-}
-type P2 struct {
-}
+type P1 struct{}
+type P2 struct{}
 
-func (p *P1) Say() {
-	fmt.Println("say p1")
-}
-func (p *P2) Say() {
-	fmt.Println("say p2")
-}
+func (p *P1) Say() { fmt.Println("say p1") }
+func (p *P2) Say() { fmt.Println("say p2") }
 
-type AAA struct {
-	P
-}
+type AAA struct{ P }
 
 func main() {
 	aaa := &AAA{}
@@ -28,3 +19,4 @@ func main() {
 	aaa.P = &P2{}
 	aaa.Say()
 }
+```
