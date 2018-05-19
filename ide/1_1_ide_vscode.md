@@ -52,3 +52,45 @@
     4. launch.json可以不配置
 ### 5.vscode snippets
 https://github.com/Microsoft/vscode-go/blob/master/snippets/go.json
+
+
+### vscode 遇到的问题
+
+#### flag provided but not defined: -goversion
+
+一个是版本原因, 一个是vscode也要修改配置gopath, 坑爹
+
+>Thank you, I was able to solve this by running brew uninstall --force go and then downloading the latest installer. Anyone who reads this and wants to use brew you could probably just do brew install go after the forced uninstall. I had to restart my terminal and Gogland after doing this.
+
+#### vscode not jump define
+
+```
+        "go.useLanguageServer": true,
+        "go.docsTool": "gogetdoc",
+```
+
+#### vscode could not launch process: exec: "lldb-server": executable file not found in $PATH
+
+```
+        xcode-select --install
+```
+
+
+#### vscode jump slow
+安装https://github.com/sourcegraph/go-langserver
+源码安装 需要 go install
+```
+  "go.useLanguageServer": true,
+```
+
+#### vscode goto Definition, Hover, Signature Help do not work for Dot imported functions 
+
+go 1.92 貌似不行, 已提交vscode issue
+
+
+#### vscode output window hide go
+~/.vscode/扩展包/package.json 找到显示的
+```
+    "showOutput": "never"
+```
+
